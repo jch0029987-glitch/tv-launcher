@@ -1,62 +1,65 @@
 plugins {
-	alias(libs.plugins.android.app)
-	alias(libs.plugins.kotlin.compose)
-	alias(libs.plugins.sqldelight)
-	alias(libs.plugins.kotlin.serialization)
-}
-
-kotlin {
-	jvmToolchain(libs.versions.java.jdk.get().toInt())
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
+    id("org.jetbrains.kotlin.plugin.serialization")
+    id("app.cash.sqldelight")
 }
 
 android {
-	namespace = "nl.ndat.tvlauncher"
-	compileSdk = libs.versions.android.compileSdk.get().toInt()
+    namespace = "nl.ndat.tvlauncher"
+    compileSdk = 35
 
-	defaultConfig {
-		minSdk = libs.versions.android.minSdk.get().toInt()
-		targetSdk = libs.versions.android.targetSdk.get().toInt()
+    defaultConfig {
+        applicationId = "nl.ndat.tvlauncher"
+        minSdk = 23
+        targetSdk = 35
+        versionCode = 10000
+        versionName = "1.0.0"
+    }
 
-		applicationId = "nl.ndat.tvlauncher"
-		versionCode = 1_00_00
-		versionName = "1.0.0"
-	}
+    buildFeatures {
+        buildConfig = true
+        compose = true
+    }
 
-	buildFeatures {
-		buildConfig = true
-		compose = true
-	}
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
 }
 
 sqldelight {
-	databases {
-		create("Database") {
-			packageName.set("nl.ndat.tvlauncher.data.sqldelight")
-			generateAsync.set(true)
-		}
-	}
+    databases {
+        create("Database") {
+            packageName.set("nl.ndat.tvlauncher.data.sqldelight")
+            generateAsync.set(true)
+        }
+    }
 }
 
 dependencies {
-	// System
-	implementation(libs.bundles.androidx.core)
-	implementation(libs.bundles.koin)
-	implementation(libs.androidx.tvprovider)
-	implementation(libs.timber)
-
-	// Data
-	implementation(libs.bundles.sqldelight)
-	implementation(libs.kotlinx.serialization.json)
-
-	// UI
-	implementation(libs.bundles.androidx.compose)
-	implementation(libs.androidx.activity)
-	implementation(libs.androidx.activity.compose)
-	implementation(libs.androidx.appcompat)
-	implementation(libs.androidx.navigation3.ui)
-	implementation(libs.androidx.palette)
-	implementation(libs.androidx.savedstate)
-	implementation(libs.androidx.tv.material)
-	implementation(libs.coil.compose)
-	debugImplementation(libs.androidx.compose.ui.tooling)
+    // AndroidX & Core
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.activity:activity-compose:1.9.3")
+    
+    // TV Specific
+    implementation("androidx.tv:tv-material:1.0.0")
+    implementation("androidx.tvprovider:tvprovider:1.1.0")
+    
+    // Compose (Using BOM for simplicity)
+    val composeBom = platform("androidx.compose:compose-bom:2024.12.01")
+    implementation(composeBom)
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.material3:material3")
+    
+    // SQLDelight
+    implementation("app.cash.sqldelight:android-driver:2.0.2")
+    
+    // Utilities
+    implementation("io.insert-koin:koin-android:4.0.0")
+    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("io.coil-kt:coil-compose:2.7.0")
 }
