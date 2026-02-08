@@ -24,7 +24,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.6.0" // stable for Compose BOM 2024.12
+        kotlinCompilerExtensionVersion = "1.6.0"
     }
 
     compileOptions {
@@ -55,7 +55,7 @@ dependencies {
     // TV Specific
     implementation("androidx.tv:tv-material:1.0.0")
     implementation("androidx.tvprovider:tvprovider:1.1.0")
-    implementation("androidx.role:role:1.3.0") // RoleManagerCompat
+    implementation("androidx.role:role:1.2.0") // latest available version
 
     // Compose (BOM)
     val composeBom = platform("androidx.compose:compose-bom:2024.12.01")
@@ -68,9 +68,9 @@ dependencies {
     // SQLDelight
     implementation("app.cash.sqldelight:android-driver:2.0.2")
 
-    // Koin (updated for Compose)
-    implementation("io.insert-koin:koin-android:4.3.3")
-    implementation("io.insert-koin:koin-compose:4.3.3")
+    // Koin (stable versions)
+    implementation("io.insert-koin:koin-android:4.3.2")
+    implementation("io.insert-koin:koin-compose:4.3.2")
 
     // Utilities
     implementation("com.jakewharton.timber:timber:5.0.1")
