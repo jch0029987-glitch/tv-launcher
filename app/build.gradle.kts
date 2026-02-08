@@ -23,12 +23,17 @@ android {
         compose = true
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.6.0" // stable for Compose BOM 2024.12
     }
-kotlinOptions {
-        jvmTarget = "21"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
@@ -46,23 +51,28 @@ dependencies {
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.activity:activity-compose:1.9.3")
-    
+
     // TV Specific
     implementation("androidx.tv:tv-material:1.0.0")
     implementation("androidx.tvprovider:tvprovider:1.1.0")
-    
-    // Compose (Using BOM for simplicity)
+    implementation("androidx.role:role:1.3.0") // RoleManagerCompat
+
+    // Compose (BOM)
     val composeBom = platform("androidx.compose:compose-bom:2024.12.01")
     implementation(composeBom)
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material3:material3")
-    
+    debugImplementation("androidx.compose.ui:ui-tooling")
+
     // SQLDelight
     implementation("app.cash.sqldelight:android-driver:2.0.2")
-    
+
+    // Koin (updated for Compose)
+    implementation("io.insert-koin:koin-android:4.3.3")
+    implementation("io.insert-koin:koin-compose:4.3.3")
+
     // Utilities
-    implementation("io.insert-koin:koin-android:4.0.0")
     implementation("com.jakewharton.timber:timber:5.0.1")
     implementation("io.coil-kt:coil-compose:2.7.0")
 }
