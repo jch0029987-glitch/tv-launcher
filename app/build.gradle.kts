@@ -54,7 +54,6 @@ dependencies {
     // TV Specific
     implementation("androidx.tv:tv-material:1.0.0")
     implementation("androidx.tvprovider:tvprovider:1.1.0")
-    implementation("androidx.role:role:1.0.0")
 
     // Compose (BOM)
     val composeBom = platform("androidx.compose:compose-bom:2024.12.01")
