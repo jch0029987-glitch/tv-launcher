@@ -23,7 +23,8 @@ fun Toolbar(
 	Row(
 		modifier = Modifier
 			.fillMaxWidth()
-			.focusRestorer(focusRequester)
+			// FIXED: Changed focusRequester to a lambda { focusRequester }
+			.focusRestorer { focusRequester } 
 			.then(modifier),
 		horizontalArrangement = Arrangement.spacedBy(10.dp),
 		verticalAlignment = Alignment.CenterVertically,
