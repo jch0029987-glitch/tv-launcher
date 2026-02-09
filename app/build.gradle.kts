@@ -23,9 +23,7 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.6.0"
-    }
+    // REMOVED: composeOptions { kotlinCompilerExtensionVersion = "1.6.0" }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -42,12 +40,13 @@ sqldelight {
         create("Database") {
             packageName.set("nl.ndat.tvlauncher.data.sqldelight")
             generateAsync.set(true)
+            // ADDED: Specify the dialect for Android
+            dialect("app.cash.sqldelight:sqlite-3-38-dialect:2.0.2") 
         }
     }
 }
 
 dependencies {
-    // AndroidX & Core
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.activity:activity-compose:1.9.3")
@@ -55,7 +54,7 @@ dependencies {
     // TV Specific
     implementation("androidx.tv:tv-material:1.0.0")
     implementation("androidx.tvprovider:tvprovider:1.1.0")
-    implementation("androidx.role:role:1.2.0") // latest available version
+    implementation("androidx.role:role:1.2.0")
 
     // Compose (BOM)
     val composeBom = platform("androidx.compose:compose-bom:2024.12.01")
@@ -68,9 +67,9 @@ dependencies {
     // SQLDelight
     implementation("app.cash.sqldelight:android-driver:2.0.2")
 
-    // Koin (stable versions)
-    implementation("io.insert-koin:koin-android:4.3.2")
-    implementation("io.insert-koin:koin-compose:4.3.2")
+    // Koin (updated for version 4.x)
+    implementation("io.insert-koin:koin-android:4.0.0")
+    implementation("io.insert-koin:koin-androidx-compose:4.0.0") 
 
     // Utilities
     implementation("com.jakewharton.timber:timber:5.0.1")
